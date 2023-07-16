@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Implement database connection
 - Add orm sequelize
 - Create backend for the project
 - Create changelog file
