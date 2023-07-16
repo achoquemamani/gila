@@ -9,6 +9,14 @@ export class UsersService {
     private userModel: typeof User,
   ) {}
 
+  async create(user: User): Promise<void> {
+    await this.userModel.create({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      isActive: user.isActive,
+    });
+  }
+
   async findAll(): Promise<User[]> {
     return this.userModel.findAll();
   }
@@ -24,5 +32,9 @@ export class UsersService {
   async remove(id: string): Promise<void> {
     const user = await this.findOne(id);
     await user.destroy();
+  }
+
+  printLog(user: any) {
+    console.log(`Show info: ${JSON.stringify(user)}`);
   }
 }

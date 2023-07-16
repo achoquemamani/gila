@@ -33,3 +33,10 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
+
+## Class diagram
+
+```Link
+# diagram
+https://app.diagrams.net/#G1rxt-03TiUNmcd0FD4rWP-GTYrjVZjsX8
+```

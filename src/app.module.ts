@@ -3,6 +3,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { User } from './users/user.model';
 
 @Module({
   imports: [
@@ -14,7 +15,9 @@ import { UsersModule } from './users/users.module';
       username: 'achoque_SQLLogin_1',
       password: 'inpfaqrgsf',
       database: 'projects',
-      models: [],
+      models: [User],
+      autoLoadModels: true,
+      synchronize: true,
     }),
     UsersModule,
   ],
