@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { User } from './user.model';
+import { User, UserDTO } from './user.model';
 import { Channel } from '../channel/channel.model';
 import { Category } from '../category/category.model';
-import { Notification } from '../notifications/notification.model';
+import { NotificationDTO } from '../notifications/notification.model';
 
 @Injectable()
 export class UsersService {
@@ -40,6 +40,13 @@ export class UsersService {
     });
   }
 
+  async findAllDTOs(): Promise<UserDTO[]> {
+    const userDTOs = (await this.findAll()).map((user) => {
+      return user.mapToUserDto();
+    });
+    return userDTOs;
+  }
+
   findOne(id: string): Promise<User> {
     return this.userModel.findOne({
       where: {
@@ -53,15 +60,13 @@ export class UsersService {
     await user.destroy();
   }
 
-  async sendMessage(notification: Notification): Promise<void> {
-    const users: User[] = await this.findAll();
+  async sendMessage(notification: NotificationDTO): Promise<void> {
+    const users: UserDTO[] = await this.findAllDTOs();
 
     //TODO: improve using observer (design pattern)
     const filteredUsers = users.filter((user) => {
       return user.subscribed.some((categorySubscribed) => {
-        return (
-          categorySubscribed.description === notification.category.description
-        );
+        return categorySubscribed === notification.category;
       });
     });
     filteredUsers.forEach((user) => {
