@@ -72,3 +72,6 @@ yarn-error.log*
 
 # local .env files
 .env.local*
+
+backend/.env
+.env

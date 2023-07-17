@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
 import { Channel } from '../channel/channel.model';
-import { Category } from 'src/category/category.model';
+import { Category } from '../category/category.model';
+import { Notification } from '../notifications/notification.model';
 
 @Injectable()
 export class UsersService {
@@ -52,8 +53,19 @@ export class UsersService {
     await user.destroy();
   }
 
-  //TODO: delete endpoint
-  printLog(user: any) {
-    console.log(`Show info: ${JSON.stringify(user)}`);
+  async sendMessage(notification: Notification): Promise<void> {
+    const users: User[] = await this.findAll();
+
+    //TODO: improve using observer (design pattern)
+    const filteredUsers = users.filter((user) => {
+      return user.subscribed.some((categorySubscribed) => {
+        return (
+          categorySubscribed.description === notification.category.description
+        );
+      });
+    });
+    filteredUsers.forEach((user) => {
+      user.sendMessage(notification);
+    });
   }
 }

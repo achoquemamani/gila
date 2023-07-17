@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Implement logic for sending notification
+- Create module for notifications
 - Implement persistance for user and attributes
 - Create module for log
 - Create frontend for the project

@@ -1,26 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { Category } from 'src/category/category.model';
 import { Notification } from './notification.model';
+import { User } from '../users/user.model';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class NotificationService {
-  constructor(
-    @InjectModel(Notification)
-    private notificationModel: typeof Notification,
-  ) {}
+  constructor(private userService: UsersService) {}
 
-  async findAll(): Promise<Notification[]> {
-    return this.notificationModel.findAll({
-      include: [
-        {
-          model: Category,
-        },
-      ],
-    });
-  }
-
-  create(notification: Notification): void {
-    console.log(`New notification: ${notification.message}`);
+  async create(notification: Notification): Promise<void> {
+    this.userService.sendMessage(notification);
   }
 }

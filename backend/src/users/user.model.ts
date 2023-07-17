@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Column, HasMany, Model, Table } from 'sequelize-typescript';
 import { Category } from '../category/category.model';
 import { Channel } from '../channel/channel.model';
+import { Notification } from 'src/notifications/notification.model';
 
 @Table
 export class User extends Model {
@@ -30,4 +31,10 @@ export class User extends Model {
   })
   @HasMany(() => Category, 'categoryId')
   subscribed: Category[];
+
+  sendMessage(notification: Notification) {
+    this.channels.forEach((channel) => {
+      channel.sendMessage(this.name, notification);
+    });
+  }
 }
