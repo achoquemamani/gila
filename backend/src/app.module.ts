@@ -8,6 +8,8 @@ import { LogsModule } from './_logs/logs.module';
 import { Channel } from './channel/channel.model';
 import { Category } from './category/category.model';
 import { Log } from './_logs/log.model';
+import { Notification } from './notifications/notification.model';
+import { NotificationModule } from './notifications/notification.module';
 
 @Module({
   imports: [
@@ -19,12 +21,13 @@ import { Log } from './_logs/log.model';
       username: 'achoque_SQLLogin_1',
       password: 'inpfaqrgsf',
       database: 'projects',
-      models: [User, Channel, Category, Log],
+      models: [User, Channel, Category, Log, Notification],
       autoLoadModels: true,
       synchronize: true,
     }),
     UsersModule,
     LogsModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,5 +1,5 @@
 import { Table, Model, Column } from 'sequelize-typescript';
-import { Notification } from '../notification/notification.model';
+import { Notification } from '../notifications/notification.model';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Table
