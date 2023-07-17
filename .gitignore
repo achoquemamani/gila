@@ -1,6 +1,6 @@
 # compiled output
-/dist
-/node_modules
+backend/dist
+backend/node_modules
 
 # Logs
 logs
@@ -37,7 +37,7 @@ lerna-debug.log*
 # Frontend
 .DS_Store
 .thumbs.db
-/node_modules
+/frontend/node_modules
 
 # Quasar core related directories
 .quasar
