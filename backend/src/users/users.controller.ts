@@ -17,8 +17,12 @@ export class UsersController {
 
   @HttpCode(HttpStatus.OK)
   @Get()
-  getUser(): Promise<User[]> {
-    return this.userService.findAll();
+  async getUser(): Promise<User[]> {
+    try {
+      return await this.userService.findAll();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   @HttpCode(HttpStatus.OK)

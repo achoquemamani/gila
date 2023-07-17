@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Implement persistance for user and attributes
 - Create module for log
 - Create frontend for the project
 - Create endpoint for adding, removing and getting users. And attach class diagram

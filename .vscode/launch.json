@@ -1,0 +1,20 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Node backend",
+            "program": "${workspaceFolder}/backend/dist/main.js",
+            "preLaunchTask": "tsc: build -  tsconfig.json",
+            "outFiles": ["${workspaceFolder}/backend/dist/**/*.js"],
+            "args": [],
+            "runtimeExecutable": "/home/ariel/.nvm/versions/node/v16.17.1/bin/node",
+            "runtimeArgs": ["--trace-warnings"],
+            "console": "integratedTerminal",
+        }
+    ]
+}

@@ -5,6 +5,9 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.model';
 import { LogsModule } from './_logs/logs.module';
+import { Channel } from './channel/channel.model';
+import { Category } from './category/category.model';
+import { Log } from './_logs/log.model';
 
 @Module({
   imports: [
@@ -16,7 +19,7 @@ import { LogsModule } from './_logs/logs.module';
       username: 'achoque_SQLLogin_1',
       password: 'inpfaqrgsf',
       database: 'projects',
-      models: [User],
+      models: [User, Channel, Category, Log],
       autoLoadModels: true,
       synchronize: true,
     }),

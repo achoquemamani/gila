@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from './user.model';
+import { Channel } from '../channel/channel.model';
+import { Category } from 'src/category/category.model';
 
 @Injectable()
 export class UsersService {
@@ -10,15 +12,31 @@ export class UsersService {
   ) {}
 
   async create(user: User): Promise<void> {
-    await this.userModel.create({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      isActive: user.isActive,
-    });
+    await this.userModel.create(
+      {
+        name: user.name,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        channels: user.channels,
+        subscribed: user.subscribed,
+      },
+      {
+        include: [Channel, Category],
+      },
+    );
   }
 
   async findAll(): Promise<User[]> {
-    return this.userModel.findAll();
+    return this.userModel.findAll({
+      include: [
+        {
+          model: Channel,
+        },
+        {
+          model: Category,
+        },
+      ],
+    });
   }
 
   findOne(id: string): Promise<User> {
@@ -34,6 +52,7 @@ export class UsersService {
     await user.destroy();
   }
 
+  //TODO: delete endpoint
   printLog(user: any) {
     console.log(`Show info: ${JSON.stringify(user)}`);
   }
