@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Create frontend for the project
+- Create endpoint for adding, removing and getting users. And attach class diagram
 - Implement database connection
 - Add orm sequelize
 - Create backend for the project
