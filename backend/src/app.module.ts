@@ -10,17 +10,20 @@ import { Category } from './category/category.model';
 import { Log } from './_logs/log.model';
 import { Notification } from './notifications/notification.model';
 import { NotificationModule } from './notifications/notification.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    //TODO: replace data to .env
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
     SequelizeModule.forRoot({
       dialect: 'mssql',
-      host: 'projects.mssql.somee.com',
-      port: 1433,
-      username: 'achoque_SQLLogin_1',
-      password: 'inpfaqrgsf',
-      database: 'projects',
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
       models: [User, Channel, Category, Log, Notification],
       autoLoadModels: true,
       synchronize: true,
