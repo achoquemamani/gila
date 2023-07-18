@@ -43,7 +43,7 @@ module.exports = configure(function (/* ctx */) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v5',
-      // 'fontawesome-v6',
+      'fontawesome-v6',
       // 'eva-icons',
       // 'themify',
       // 'line-awesome',
@@ -69,7 +69,9 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      // env: {},
+      env: {
+        API_URL: `http://localhost:3000`,
+      },
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
@@ -115,7 +117,9 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'QInnerLoading', 'Notify'
+      ]
     },
 
     // animations: 'all', // --- includes all animations

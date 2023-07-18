@@ -1,49 +1,91 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="row">
+    <div class="col-sm-12 row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <UITable
+          class="q-pt-md"
+          title="Logs"
+          :rows="logs"
+          :columns="columns"
+        ></UITable>
+      </div>
+      <div class="col-sm-2"></div>
+
+      <q-inner-loading
+        :showing="isLoading"
+        label="Please wait..."
+        label-class="text-primary"
+        label-style="font-size: 1.1em"
+      >
+      </q-inner-loading>
+    </div>
   </q-page>
 </template>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
-import { defineComponent, ref } from 'vue';
+import axios from 'axios';
+import { defineComponent, onMounted, ref } from 'vue';
+import { Log, Column } from 'components/models';
+import UITable from 'components/UITable.vue';
+import { config } from '../config/index';
+import { useQuasar } from 'quasar';
+const API_URL = config.apiUrl;
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { ExampleComponent },
-  setup () {
-    const todos = ref<Todo[]>([
+  components: { UITable },
+  setup() {
+    const $q = useQuasar();
+    const isLoading = ref<boolean>(true);
+    const logs = ref<Log[]>([]);
+
+    onMounted(async () => {
+      try {
+        const response = await axios.get(`${API_URL}/logs`);
+        isLoading.value = false;
+        logs.value = response.data.map((item: any) => {
+          const log: Log = {
+            id: item.id,
+            message: item.message,
+            timestamp: `${item.updatedAt
+              .slice(0, 10)
+              .split('-')
+              .reverse()
+              .join('/')} ${item.updatedAt.slice(11, 16)}`
+          };
+          return log;
+        });
+      } catch {
+        $q.notify({
+          type: 'negative',
+          message: 'Error in searching logs.'
+        });
+        isLoading.value = false;
+      }
+    });
+
+    const columns = ref<Column[]>([
       {
-        id: 1,
-        content: 'ct1'
+        name: 'id',
+        label: 'Id',
+        field: 'id',
+        align: 'left'
       },
       {
-        id: 2,
-        content: 'ct2'
+        name: 'message',
+        label: 'Message',
+        field: 'message',
+        align: 'left'
       },
       {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
+        name: 'timestamp',
+        label: 'Timestmap',
+        field: 'timestamp',
+        align: 'left'
       }
     ]);
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-    return { todos, meta };
+    return { logs, columns, isLoading };
   }
 });
 </script>

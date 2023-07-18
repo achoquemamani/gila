@@ -1,8 +1,12 @@
-export interface Todo {
+export interface Log {
   id: number;
-  content: string;
+  message: string;
+  timestamp: string;
 }
 
-export interface Meta {
-  totalCount: number;
+export interface Column {
+  name: string;
+  label: string;
+  field: string;
+  align: string;
 }

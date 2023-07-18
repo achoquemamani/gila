@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf" class="bg-light-blue-1">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -11,25 +11,15 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Notification system
-        </q-toolbar-title>
+        <q-toolbar-title> Notification system </q-toolbar-title>
 
         <div></div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item-label header> Links </q-item-label>
 
         <EssentialLink
           v-for="link in essentialLinks"
@@ -52,12 +42,10 @@ import EssentialLink from 'components/EssentialLink.vue';
 const linksList = [
   {
     title: 'Logs',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    link: '/'
   },
   {
     title: 'Form',
-    icon: 'code',
     link: 'https://github.com/quasarframework'
   }
 ];
@@ -69,16 +57,16 @@ export default defineComponent({
     EssentialLink
   },
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+  setup() {
+    const leftDrawerOpen = ref(false);
 
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
       }
-    }
+    };
   }
 });
 </script>
