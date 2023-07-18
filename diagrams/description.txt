@@ -1,0 +1,10 @@
+Frontend
+1. Add i18n for the project
+2. Posibility to use pinia for store 
+
+Backend
+1. Use endpoints with token, for security
+2. Category is an entity not repeated
+
+Both
+1. Use docker for run the projects
