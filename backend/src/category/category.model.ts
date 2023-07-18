@@ -20,7 +20,7 @@ export class Category extends Model {
         return EnumCategory.FINANCE;
       case 'Sports':
         return EnumCategory.SPORTS;
-      case 'Movie':
+      case 'Movies':
         return EnumCategory.MOVIES;
       default:
         return EnumCategory.OTHERS;

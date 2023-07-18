@@ -13,6 +13,19 @@ export class LogsService {
     return this.logModel.findAll();
   }
 
+  findOne(id: string): Promise<Log> {
+    return this.logModel.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async remove(id: string): Promise<void> {
+    const log = await this.findOne(id);
+    await log.destroy();
+  }
+
   async create(log: Log): Promise<void> {
     await this.logModel.create({
       message: log.message,

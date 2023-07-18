@@ -4,7 +4,9 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
+  Logger,
   Param,
   Post,
 } from '@nestjs/common';
@@ -13,7 +15,23 @@ import { User } from './user.model';
 
 @Controller('user')
 export class UsersController {
+  private readonly LOGGER = new Logger(UsersController.name);
   constructor(private userService: UsersService) {}
+
+  private manageException(error: any) {
+    const message = error.message;
+    this.LOGGER.error(message);
+    throw new HttpException(
+      {
+        status: HttpStatus.BAD_REQUEST,
+        error: message,
+      },
+      HttpStatus.BAD_REQUEST,
+      {
+        cause: error,
+      },
+    );
+  }
 
   @HttpCode(HttpStatus.OK)
   @Get()
@@ -21,18 +39,27 @@ export class UsersController {
     try {
       return await this.userService.findAll();
     } catch (error) {
-      console.log(error);
+      this.manageException(error);
     }
   }
 
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.CREATED)
   @Post()
-  createUser(@Body() user: User): void {
-    this.userService.create(user);
+  async createUser(@Body() user: User): Promise<void> {
+    try {
+      await this.userService.create(user);
+    } catch (error) {
+      this.manageException(error);
+    }
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    this.userService.remove(id);
+  async remove(@Param('id') id: string): Promise<void> {
+    try {
+      await this.userService.remove(id);
+    } catch (error) {
+      this.manageException(error);
+    }
   }
 }
