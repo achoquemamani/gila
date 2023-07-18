@@ -1,8 +1,8 @@
 {
   "name": "frontend",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Notification system",
-  "productName": "notification",
+  "productName": "Notification",
   "author": "Ariel Choque Mamani",
   "private": true,
   "scripts": {
