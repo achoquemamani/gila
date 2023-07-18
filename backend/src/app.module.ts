@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.model';
 import { LogsModule } from './_logs/logs.module';
-import { Channel } from './channel/channel.model';
+import { Channel } from './users/channel.model';
 import { Category } from './category/category.model';
 import { Log } from './_logs/log.model';
 import { Notification } from './notifications/notification.model';

@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User, UserDTO } from './user.model';
-import { Channel } from '../channel/channel.model';
+import { Channel } from './channel.model';
 import { Category } from '../category/category.model';
 import { NotificationDTO } from '../notifications/notification.model';
+import { LogsService } from '../_logs/logs.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User)
     private userModel: typeof User,
+    private logsService: LogsService,
   ) {}
 
   async create(user: User): Promise<void> {
@@ -42,7 +44,7 @@ export class UsersService {
 
   async findAllDTOs(): Promise<UserDTO[]> {
     const userDTOs = (await this.findAll()).map((user) => {
-      return user.mapToUserDto();
+      return user.mapToUserDto(this.logsService);
     });
     return userDTOs;
   }

@@ -7,8 +7,9 @@ import {
   Email,
   PushNotification,
   SMS,
-} from '../channel/channel.model';
-import { NotificationDTO } from 'src/notifications/notification.model';
+} from './channel.model';
+import { NotificationDTO } from '../notifications/notification.model';
+import { LogsService } from '../_logs/logs.service';
 
 @Table
 export class User extends Model {
@@ -38,7 +39,7 @@ export class User extends Model {
   @HasMany(() => Category, 'categoryId')
   subscribed: Category[];
 
-  mapToUserDto(): UserDTO {
+  mapToUserDto(logsService: LogsService): UserDTO {
     const userDto = new UserDTO();
     userDto.name = this.name;
     userDto.email = this.email;
@@ -46,11 +47,11 @@ export class User extends Model {
     userDto.channels = this.channels.map((channel) => {
       switch (channel.description) {
         case 'SMS':
-          return new SMS();
+          return new SMS(logsService);
         case 'Email':
-          return new Email();
+          return new Email(logsService);
         case 'PushNotification':
-          return new PushNotification();
+          return new PushNotification(logsService);
       }
     });
     userDto.subscribed = this.subscribed.map((subscribedCategory) => {
@@ -69,7 +70,7 @@ export class UserDTO {
 
   sendMessage(notification: NotificationDTO) {
     this.channels.forEach((channel) => {
-      channel.sendMessage(this.name, notification);
+      channel.sendMessage(this, notification);
     });
   }
 }
