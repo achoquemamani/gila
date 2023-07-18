@@ -1,15 +1,21 @@
 <template>
   <div>
-    <q-table :title="title" :rows="rows" :columns="columns" row-key="name" />
+    <q-table
+      :pagination="initialPagination"
+      :title="title"
+      :rows="rows"
+      :columns="columns"
+      row-key="name"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, ref } from 'vue';
 import { Log } from './models';
 
 export default defineComponent({
-  name: 'ExampleComponent',
+  name: 'UITable',
   props: {
     title: {
       type: String,
@@ -29,6 +35,12 @@ export default defineComponent({
       >,
       default: () => []
     }
+  },
+  setup() {
+    const initialPagination = ref({
+      rowsPerPage: 10
+    });
+    return { initialPagination };
   }
 });
 </script>

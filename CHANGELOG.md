@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Create screen for sending notification
 - Create screen for showing logs
 - Create endpoint for delete log
 - Implement logic for saving logs

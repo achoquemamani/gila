@@ -10,7 +10,9 @@ export class LogsService {
   ) {}
 
   async findAll(): Promise<Log[]> {
-    return this.logModel.findAll();
+    return (await this.logModel.findAll()).sort(
+      (log, otherLog) => otherLog.updatedAt - log.updatedAt,
+    );
   }
 
   findOne(id: string): Promise<Log> {

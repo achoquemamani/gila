@@ -46,7 +46,7 @@ const linksList = [
   },
   {
     title: 'Form',
-    link: 'https://github.com/quasarframework'
+    link: '/#/form'
   }
 ];
 

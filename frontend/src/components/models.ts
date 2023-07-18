@@ -10,3 +10,8 @@ export interface Column {
   field: string;
   align: string;
 }
+
+export interface Category {
+  id: string;
+  description: string;
+}
